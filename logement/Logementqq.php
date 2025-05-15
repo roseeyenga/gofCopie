@@ -1,0 +1,375 @@
+
+<?php require('logement.php'); ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoFind</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #89a9ce,#89a9ce );
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .search-bar {
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      width: 400px;
+    }
+    .search-bar input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ccc;
+      font-size: 16px;
+      flex: 1;
+      margin-left: 10px;
+    }
+    .search-bar .icon {
+      color: #aaa;
+      font-size: 18px;
+    }
+
+    .btn1 {
+      display: flex;
+      align-items: center;
+      width: 40px;
+      height:40px;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #000;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      
+    }
+    .container {
+      background-color: rgb(45, 118, 226);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 2000px;
+      text-align: center;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .icons img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #fff;
+      padding: 5px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    input[type="email"], input[type="password"], input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background-color: #f0f0f0;
+    }
+
+    .btn {
+      width: 10%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #000;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .separator {
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .separator::before,
+    .separator::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 45%;
+      height: 1px;
+      background: #ccc;
+    }
+
+    .separator::before {
+      left: 0;
+    }
+
+    .separator::after {
+      right: 0;
+    }
+
+    .separator span {
+      background: white;
+      padding: 0 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .tbody{
+      background: white;
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 1500px;
+      text-align: center;
+
+    }
+    .section-title {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  </style>
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+</head>
+<body>
+  <div class="container">
+      <div class="icons">
+          <!-- Fix the path to the image -->
+          <img src=alt="Logement">  <!-- Replace with the correct relative path -->
+      </div>
+
+      <h1>GoFind</h1>
+
+      <div class="search-bar">
+          <i class="fas fa-search icon"></i>
+          <input type="text" placeholder="Rechercher un trajet">
+          <button class="btn1">OK</button>
+      </div>
+
+      <h1>Liste des Logements</h1>
+      <?php require('logement.php'); ?>
+      <?php if (count($logements) > 0): ?>
+          <table border="1" cellpadding="10">
+              <thead>
+                  <tr>
+                    <th>Localisation</th>
+                    <th>Pièces disponibles</th>
+                    <th>Prix (FCFA)</th>
+                    <th>Action</th>
+                      
+                  </tr>
+              </thead>
+              <tbody>
+                  <?php foreach ($logements as $logement): ?>
+                      <tr>
+                          <td><?php echo htmlspecialchars($logement['localisation']); ?></td>
+                          <td><?php echo htmlspecialchars($logement['Nombre_de_pieces_disponibles']); ?></td>
+                          <td><?php echo htmlspecialchars($logement['prix']); ?></td>
+                          <td>
+                            <button id="reserver" onclick="openModal(<?php echo $index; ?>)">Réserver</button>
+                        </td>
+                      </tr>
+                  <?php endforeach; ?>
+              </tbody>
+          </table>
+      <?php else: ?>
+          <p>Aucun logement trouvé dans la base de données.</p>
+      <?php endif; ?>
+      ?>
+
+      <a href="FsignLogement.html"><button class="btn">Signaler un logement</button></a>
+      <a href="Menu.html"><button class="btn">Retour</button></a>
+  </div>
+
+
+
+  
+    <!-- Modales pour chaque logement -->
+    <?php foreach ($logements as $index => $logement): ?>
+        <div class="modal" id="modal-<?php echo $index; ?>">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal(<?php echo $index; ?>)">&times;</span>
+                <h2>Réserver à <?php echo htmlspecialchars($logement['localisation']); ?></h2>
+                <form method="POST" action="traitementresvlo.php">
+                    <input type="hidden" name="idl" value="<?php echo htmlspecialchars($logement['idl']); ?>">
+                    <input type="hidden" class="prix-unitaire" value="<?php echo htmlspecialchars($logement['prix']); ?>">
+
+                    <label>identifiant :</label>
+                    <input type="int" name="id" required><br>
+
+                    <label>Nombre de pièces souhaitées :</label>
+                    <input type="number"
+                        name="nb_pieces"
+                        class="nb-pieces"
+                        min="1"
+                        max="<?php echo htmlspecialchars($logement['nombre_de_pieces_disponibles']); ?>"
+                        required><br>
+
+                    <p><strong>Prix total :</strong> <span class="prix-total"></span> FCFA</p>
+                    <input type="hidden" name="prix" class="prix-hidden" id="prix">
+
+                    <button type="submit">Confirmer la réservation</button>
+                </form>
+            </div>
+        </div>
+    <?php endforeach; ?>
+
+    <!-- Style CSS pour la modale -->
+    <style>
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px; right: 15px;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #1b5e20;
+        }
+
+        .tbody {
+            background-color: rgb(45, 118, 226);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+    </style>
+
+
+
+  <!-- Script JS pour gérer les modales -->
+  <script>
+    function openModal(index) {
+        document.getElementById('modal-' + index).style.display = 'block';
+    }
+    document.querySelectorAll('.modal').forEach(function(modal) {
+        const nbPiecesInput = modal.querySelector('.nb-pieces');
+        const prixUnitaire = parseInt(modal.querySelector('.prix-unitaire').value);
+        const prixTotalSpan = modal.querySelector('.prix-total');
+
+
+        if (nbPiecesInput) {
+            nbPiecesInput.addEventListener('input', function () {
+                const nb = parseInt(this.value);
+                if (!isNaN(nb) && nb >= 1) {
+                    const total = nb * prixUnitaire;
+                    prixTotalSpan.textContent = total.toLocaleString(); // Affiche avec séparateurs (1 000 000)
+                    
+                } else {
+                    prixTotalSpan.textContent = '0';
+                }
+            });
+        }
+    });
+
+
+            // Lors du clic sur "Réserver"
+    a = ducument.getElementById("reserver");
+    a.addEventListener("click", function () {
+    const logementId = this.dataset.logementId; // par exemple
+    document.querySelector("#formulaireReservation input[name='idl']").value = logementId;
+    });
+
+    function closeModal(index) {
+        document.getElementById('modal-' + index).style.display = 'none';
+    }
+
+    // Fermer en cliquant hors de la modale
+    window.onclick = function(event) {
+        document.querySelectorAll('.modal').forEach(function(modal) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    };
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // Pour chaque formulaire de réservation sur la page
+        document.querySelectorAll('form').forEach(function(form) {
+            const nbPiecesInput = form.querySelector('.nb-pieces');
+            const prixUnitaireInput = form.querySelector('.prix-unitaire');
+            const prixTotalSpan = form.querySelector('.prix-total');
+            const prixHiddenInput = document.getElementById('prix');
+
+            function updatePrix() {
+            const nbPieces = parseInt(nbPiecesInput.value) || 0;
+            const prixUnitaire = parseInt(prixUnitaireInput.value) || 0;
+            const total = nbPieces * prixUnitaire;
+
+
+            prixTotalSpan.textContent = total;
+            documentgetElementById("prix").value = total;
+            prixHiddenInput.value = total;
+
+            }
+
+            nbPiecesInput.addEventListener('input', updatePrix);
+            updatePrix(); // calcul initial si besoin
+        });
+    });
+    
+</script>
+</body>
+</html>

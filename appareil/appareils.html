@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoFind</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #f3f5f5, #f2f5f5);
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .search-bar {
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      width: 400px;
+    }
+    .search-bar input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ccc;
+      font-size: 16px;
+      flex: 1;
+      margin-left: 10px;
+    }
+    .search-bar .icon {
+      color: #aaa;
+      font-size: 18px;
+    }
+
+
+    .container {
+      background-color: rgb(45, 118, 226);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .icons img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #fff;
+      padding: 5px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    input[type="int"], input[type="text"], input[type="int"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background-color: #f0f0f0;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #000;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .separator {
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .separator::before,
+    .separator::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 45%;
+      height: 1px;
+      background: #ccc;
+    }
+
+    .separator::before {
+      left: 0;
+    }
+
+    .separator::after {
+      right: 0;
+    }
+
+    .separator span {
+      background: white;
+      padding: 0 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  </style>
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+</head>
+<body>
+  <div class="container">
+    <div class="icons">
+      <a href="RechercheAppareils.html"><button class="btn0"><img src="C:\wamp64\www\gofCopie\images\appareil.jpg" alt="Appareil"></button></a>
+    </div>
+    <h1>GoFind</h1>
+    <p><strong>Formulaire appareil volé</strong><br></p>
+    <form action="../utilisateur/ajouterAppareil.php" method="POST">
+    <input type="int" name="ida" placeholder="identifant appareil" required>
+    <input type="text"  name="nom" placeholder="nom appareil" required>
+    <input type="int" name="id"  placeholder="id proprietaire" required>
+   
+    <a href="RechercheAppareils.html"><button class="btn">OK</button></a>
+      </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoFind</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #89a9ce, #89a9ce);
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: rgb(45, 118, 226);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 100%;
+      text-align: center;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .icons img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #fff;
+      padding: 5px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    input[type="email"], input[type="password"], input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background-color: #f0f0f0;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #000;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .separator {
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .separator::before,
+    .separator::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 45%;
+      height: 1px;
+      background: #ccc;
+    }
+
+    .separator::before {
+      left: 0;
+    }
+
+    .separator::after {
+      right: 0;
+    }
+
+    .separator span {
+      background: white;
+      padding: 0 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icons">
+      <img src="C:\Users\Rose Eyenga\Desktop\LSI 3\GoFind\WhatsApp Image 2025-04-24 à 23.26.53_ae3505a0.jpg" alt="Recyclage">
+      <img src="C:\Users\Rose Eyenga\Desktop\LSI 3\GoFind\WhatsApp Image 2025-04-24 à 23.26.14_bc1e3172.jpg" alt="Covoiturage">
+      <img src="C:\Users\Rose Eyenga\Desktop\LSI 3\GoFind\WhatsApp Image 2025-04-24 à 23.26.13_8fc991f9.jpg" alt="Logement">
+    </div>
+    <h1>GoFind</h1>
+    <p><strong>Créer un compte</strong><br>Entréz votre email et mot de passe</p>
+    <input type="email" placeholder="email" required>
+    <input type="password" placeholder="mot de passe" required>
+  <div id="mainContent"></div>
+    <a href="Accueil.php"><button  class="btn" >Continue</button></a>
+
+    <div class="separator"><span>or</span></div>
+
+    <p class="section-title">Connexion</p>
+    <input type="text" name= "nom" placeholder="login" required>
+    <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
+    <a href="Menu.php"><button class="btn">Connexion</button></a>
+  </div>
+</body>
+</html>
+
+ 
+
